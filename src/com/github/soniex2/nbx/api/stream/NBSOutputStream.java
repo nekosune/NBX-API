@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 import com.github.soniex2.nbx.api.nbs.NBSBlock;
 import com.github.soniex2.nbx.api.nbs.NBSHeader;
-import com.github.soniex2.nbx.api.nbs.NBSSong;
+import com.github.soniex2.nbx.api.nbs.NBSOldSong;
 import com.github.soniex2.nbx.api.nbs.NBSTick;
 
 public class NBSOutputStream extends LittleEndianDataOutputStream {
@@ -33,7 +33,7 @@ public class NBSOutputStream extends LittleEndianDataOutputStream {
 		writeASCII(header.getImportName());
 	}
 
-	public void writeSong(NBSSong song) throws IOException {
+	public void writeSong(NBSOldSong song) throws IOException {
 		short songTicks = song.getTicks();
 		short lastTick = -1;
 		for (short x = 0; x < songTicks; x++) {

@@ -1,5 +1,7 @@
 package com.github.soniex2.nbx.api.nbs;
+import java.io.IOException;
 
+import com.github.soniex2.nbx.api.stream.LittleEndianDataInputStream;
 public class NBSHeader {
 
 	private short ticks = 0;
@@ -173,7 +175,34 @@ public class NBSHeader {
 	public void setImportName(String importName) {
 		this.importName = importName;
 	}
-
+	
+	/**
+	 * Reads a new header from stream
+	 * @param stream Stream to read from
+	 * @return Header constructed
+	 * @throws IOException If invalid stream
+	 */
+	public static NBSHeader fromStream(LittleEndianDataInputStream stream) throws IOException
+	{
+		NBSHeader header=new NBSHeader();
+		header.ticks=stream.readShort();
+		header.layers=stream.readShort();
+		header.name=stream.readASCII();
+		header.author=stream.readASCII();
+		header.originalAuthor=stream.readASCII();
+		header.description=stream.readASCII();
+		header.tempo=stream.readShort();
+		header.autosave=stream.readBoolean();
+		header.autosaveTime=stream.readByte();
+		header.timeSig=stream.readByte();
+		header.minutes=stream.readInt();
+		header.lclicks=stream.readInt();
+		header.rclicks=stream.readInt();
+		header.blockAdds=stream.readInt();
+		header.blockBreaks=stream.readInt();
+		header.importName=stream.readASCII();
+		return header;
+	}
 	public NBSHeader copy() {
 		NBSHeader x = new NBSHeader();
 		x.ticks = ticks;

@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.util.zip.CRC32;
 
 import com.github.soniex2.nbx.api.nbs.NBSHeader;
-import com.github.soniex2.nbx.api.nbs.NBSSong;
+import com.github.soniex2.nbx.api.nbs.NBSOldSong;
 
 public class NBXOutputStream extends LittleEndianDataOutputStream {
 
@@ -49,12 +49,12 @@ public class NBXOutputStream extends LittleEndianDataOutputStream {
 	 * @param header
 	 *            the {@link NBSHeader} for the song
 	 * @param song
-	 *            the {@link NBSSong} itself
-	 * @see #writeSong(NBSHeader, NBSSong, boolean)
+	 *            the {@link NBSOldSong} itself
+	 * @see #writeSong(NBSHeader, NBSOldSong, boolean)
 	 * @throws IOException
 	 *             if an I/O error occurs.
 	 */
-	public void writeSong(NBSHeader header, NBSSong song) throws IOException {
+	public void writeSong(NBSHeader header, NBSOldSong song) throws IOException {
 		writeSong(header, song, true);
 	}
 
@@ -64,13 +64,13 @@ public class NBXOutputStream extends LittleEndianDataOutputStream {
 	 * @param header
 	 *            the {@link NBSHeader} for the song
 	 * @param song
-	 *            the {@link NBSSong} itself
+	 *            the {@link NBSOldSong} itself
 	 * @param end
 	 *            to add a "SEND" chunk after the data
 	 * @throws IOException
 	 *             if an I/O error occurs.
 	 */
-	public void writeSong(NBSHeader header, NBSSong song, boolean end)
+	public void writeSong(NBSHeader header, NBSOldSong song, boolean end)
 			throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		NBSOutputStream os = new NBSOutputStream(baos);

@@ -24,4 +24,8 @@ public final class NBSBlock {
 		return note;
 	}
 
+	public NBSBlock copy() {
+		return new NBSBlock(this.inst,this.note);
+	}
+
 }

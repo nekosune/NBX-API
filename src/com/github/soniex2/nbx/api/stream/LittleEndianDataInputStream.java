@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.io.UTFDataFormatException;
 
-class LittleEndianDataInputStream extends BufferedInputStream implements
+public class LittleEndianDataInputStream extends BufferedInputStream implements
 		DataInput {
 
 	protected LittleEndianDataInputStream(InputStream in) {

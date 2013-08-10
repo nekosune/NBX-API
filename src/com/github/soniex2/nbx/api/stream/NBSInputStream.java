@@ -6,13 +6,13 @@ import java.io.InputStream;
 
 import com.github.soniex2.nbx.api.nbs.NBSBlock;
 import com.github.soniex2.nbx.api.nbs.NBSHeader;
-import com.github.soniex2.nbx.api.nbs.NBSSong;
+import com.github.soniex2.nbx.api.nbs.NBSOldSong;
 import com.github.soniex2.nbx.api.nbs.NBSTick;
 
 public class NBSInputStream extends LittleEndianDataInputStream {
 
 	private NBSHeader header;
-	private NBSSong song;
+	private NBSOldSong song;
 
 	public NBSInputStream(InputStream is) {
 		super(is);
@@ -21,16 +21,13 @@ public class NBSInputStream extends LittleEndianDataInputStream {
 	public NBSHeader getHeader() throws IOException {
 		if (header != null)
 			return header.copy();
-		return (header = new NBSHeader(readShort(), readShort(), readASCII(),
-				readASCII(), readASCII(), readASCII(), readShort(),
-				readBoolean(), readByte(), readByte(), readInt(), readInt(),
-				readInt(), readInt(), readInt(), readASCII())).copy();
+		return (header = NBSHeader.fromStream(this)).copy();
 	}
 
-	public NBSSong getSong() throws IOException {
+	public NBSOldSong getSong() throws IOException {
 		if (song != null)
 			return song.copy();
-		song = new NBSSong(header.getTicks(), header.getLayers());
+		song = new NBSOldSong(header.getTicks(), header.getLayers());
 		short tick = -1;
 		short jumps = 0;
 		while (true) {
